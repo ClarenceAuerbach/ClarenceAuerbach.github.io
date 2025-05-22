@@ -21,7 +21,7 @@
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
   overflow: hidden;
 }
 
@@ -29,20 +29,24 @@
   position: absolute;
   width: 30px;
   height: 30px;
-  background-image: url("symbol.png");
+  background-image: url("./symbol.png");
   background-size: contain;
   background-repeat: no-repeat;
-  opacity: 0;
+  opacity: 1;
   animation: flicker 6s ease-in-out infinite;
 }
 
-@keyframes flicker {
-  0%, 100% {
+@keyframes twinkle {
+  0% {
     opacity: 0;
-    transform: scale(0.8) rotate(0deg);
+    transform: scale(0.5);
   }
   50% {
-    opacity: 0.15;
-    transform: scale(1) rotate(20deg);
+    opacity: 0.8; /* Adjust for desired brightness */
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
   }
 }
