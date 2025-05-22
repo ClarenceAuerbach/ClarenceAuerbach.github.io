@@ -8,7 +8,7 @@
 body {
   font-family: 'Latin Modern Roman', serif;
   background-color: #eee2d6;
-  color: #927c65;
+  color: #8d7963;
   line-height: 1.6;
   padding: 2rem;
   max-width: 800px;
@@ -46,4 +46,8 @@ footer {
   font-size: 0.9rem;
   color: #666;
   margin-top: 3rem;
+}
+
+main {
+    padding-left: 2rem;
 }
