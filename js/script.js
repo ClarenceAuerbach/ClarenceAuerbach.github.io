@@ -59,22 +59,60 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // Ball (Bits) - corrupted data bouncing around
+  // Load ball images
+  const ballImages = [
+    "./ressource/one.png",
+    "./ressource/zero.png",
+  ];
+  const ballImgs = [];
+  let imagesLoaded = 0;
+
+  ballImages.forEach((src) => {
+    const img = new Image();
+    img.src = src;
+    img.onload = () => {
+      imagesLoaded++;
+    };
+    ballImgs.push(img);
+  });
+
   const ball = {
     x: canvas.width / 2,
     y: canvas.height / 2,
-    radius: 5,
+    radius: 12,
     dx: 3,
     dy: -3,
     color: "#00ff41",
+    imageIndex: 0,
+    animationCounter: 0,
     draw() {
-      ctx.fillStyle = this.color;
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-      ctx.fill();
-      // Bit glow
-      ctx.strokeStyle = "rgba(0, 255, 65, 0.5)";
-      ctx.lineWidth = 2;
-      ctx.stroke();
+      if (imagesLoaded === 2 && ballImgs[this.imageIndex].complete) {
+        // Draw alternating images
+        const size = this.radius * 2;
+        ctx.drawImage(
+          ballImgs[this.imageIndex],
+          this.x - this.radius,
+          this.y - this.radius,
+          size,
+          size
+        );
+
+        // Alternate image every 25 frames (slower)
+        this.animationCounter++;
+        if (this.animationCounter >= 25) {
+          this.imageIndex = 1 - this.imageIndex;
+          this.animationCounter = 0;
+        }
+      } else {
+        // Fallback if images don't load
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = "rgba(0, 255, 65, 0.5)";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }
     },
     update() {
       this.x += this.dx;
@@ -98,63 +136,75 @@ document.addEventListener("DOMContentLoaded", () => {
       return "ok";
     },
     checkPaddleCollision(paddle) {
-      if (
-        this.x > paddle.x &&
-        this.x < paddle.x + paddle.width &&
-        this.y + this.radius > paddle.y &&
-        this.y + this.radius < paddle.y + paddle.height
-      ) {
-        this.dy *= -1;
-        this.y = paddle.y - this.radius;
+      // Check if ball is within vertical range of paddle
+      const ballBottom = this.y + this.radius;
+      const ballTop = this.y - this.radius;
+      const paddleTop = paddle.y;
+      const paddleBottom = paddle.y + paddle.height;
 
-        // Add English to ball based on paddle position
-        const hitPos = (this.x - (paddle.x + paddle.width / 2)) / (paddle.width / 2);
-        this.dx += hitPos * 2;
+      // Only check collision if ball is approaching from above
+      if (this.dy > 0 && ballBottom >= paddleTop && ballBottom <= paddleBottom + 10) {
+        // Check if ball is within horizontal range
+        const ballLeft = this.x - this.radius;
+        const ballRight = this.x + this.radius;
+        const paddleLeft = paddle.x;
+        const paddleRight = paddle.x + paddle.width;
 
-        return true;
+        if (ballRight > paddleLeft && ballLeft < paddleRight) {
+          // Collision detected
+          this.dy = -Math.abs(this.dy); // Ensure upward movement
+          this.y = paddleTop - this.radius;
+
+          // Add spin to ball based on paddle position
+          const paddleCenter = paddleLeft + paddle.width / 2;
+          const hitPos = (this.x - paddleCenter) / (paddle.width / 2);
+          this.dx = hitPos * 5;
+
+          return true;
+        }
       }
       return false;
     },
   };
 
   // Bricks (C Code) - things to break
-  const codeSnippets = [
-    "#include <stdio.h>",
-    "int main() {",
-    "printf(\"Hello\");",
-    "return 0;",
-    "malloc(size)",
-    "free(ptr);",
-    "void *ptr;",
-    "int arr[10];",
-    "if (x > 5) {",
-    "for (i=0; i<n)",
-    "while (1) {",
-    "sizeof(int)",
+  const codeLines = [
+    "strcpy(path_cp, path);",
+    "int idx = atoi(entry->d_name);",
+    "extract_cmd((dest_cmd->cmd)+idx, path_cp);",
+    "free(dir_path_copy);",
   ];
 
   let bricks = [];
 
   function initBricks() {
     bricks = [];
-    const brickWidth = 60;
-    const brickHeight = 20;
-    const brickPadding = 8;
-    const cols = Math.floor((canvas.width - 20) / (brickWidth + brickPadding));
+    const charWidth = 12;
+    const charHeight = 20;
+    const lineSpacing = 25;
     const rows = 3 + gameState.level;
+    let brickId = 0;
 
+    // Create rows of code lines
     for (let r = 0; r < rows; r++) {
-      for (let c = 0; c < cols; c++) {
-        const x = 10 + c * (brickWidth + brickPadding);
-        const y = 30 + r * (brickHeight + brickPadding);
-        const code = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+      const codeLine = codeLines[r];
+      const startX = 20;
+      const startY = 30 + r * lineSpacing;
+      
+      // Create a brick for each character in the line
+      for (let c = 0; c < codeLine.length; c++) {
+        const char = codeLine[c];
+        const x = startX + c * charWidth;
+        const y = startY;
+        
         bricks.push({
+          id: brickId++,
           x,
           y,
-          width: brickWidth,
-          height: brickHeight,
+          width: charWidth,
+          height: charHeight,
           active: true,
-          code,
+          char,
           color: "#00ff41",
         });
       }
@@ -164,21 +214,15 @@ document.addEventListener("DOMContentLoaded", () => {
   function drawBricks() {
     bricks.forEach((brick) => {
       if (brick.active) {
+        // Draw character at actual size (no background rectangle)
         ctx.fillStyle = brick.color;
-        ctx.fillRect(brick.x, brick.y, brick.width, brick.height);
+        ctx.font = "bold 16px JetBrains Mono";
+        ctx.fillText(brick.char, brick.x, brick.y + 16);
 
-        // Code display
-        ctx.fillStyle = "#000";
-        ctx.font = "9px JetBrains Mono";
-        const textWidth = ctx.measureText(brick.code).width;
-        const textX = brick.x + (brick.width - textWidth) / 2;
-        const textY = brick.y + brick.height / 2 + 3;
-        ctx.fillText(brick.code, textX, textY);
-
-        // Border glow
-        ctx.strokeStyle = "#00cc33";
-        ctx.lineWidth = 1;
-        ctx.strokeRect(brick.x, brick.y, brick.width, brick.height);
+        // Optional: subtle glow effect around character
+        ctx.strokeStyle = "rgba(0, 255, 65, 0.3)";
+        ctx.lineWidth = 0.5;
+        ctx.strokeText(brick.char, brick.x, brick.y + 16);
       }
     });
   }
@@ -187,14 +231,41 @@ document.addEventListener("DOMContentLoaded", () => {
     bricks.forEach((brick) => {
       if (!brick.active) return;
 
+      const ballLeft = ball.x - ball.radius;
+      const ballRight = ball.x + ball.radius;
+      const ballTop = ball.y - ball.radius;
+      const ballBottom = ball.y + ball.radius;
+
+      const brickLeft = brick.x;
+      const brickRight = brick.x + brick.width;
+      const brickTop = brick.y;
+      const brickBottom = brick.y + brick.height;
+
+      // Check AABB (Axis-Aligned Bounding Box) collision
       if (
-        ball.x > brick.x &&
-        ball.x < brick.x + brick.width &&
-        ball.y > brick.y &&
-        ball.y < brick.y + brick.height
+        ballRight > brickLeft &&
+        ballLeft < brickRight &&
+        ballBottom > brickTop &&
+        ballTop < brickBottom
       ) {
         brick.active = false;
-        ball.dy *= -1;
+
+        // Determine collision side and bounce accordingly
+        const overlapLeft = ballRight - brickLeft;
+        const overlapRight = brickRight - ballLeft;
+        const overlapTop = ballBottom - brickTop;
+        const overlapBottom = brickBottom - ballTop;
+
+        const minOverlap = Math.min(overlapLeft, overlapRight, overlapTop, overlapBottom);
+
+        if (minOverlap === overlapTop || minOverlap === overlapBottom) {
+          // Collision from top or bottom
+          ball.dy *= -1;
+        } else {
+          // Collision from left or right
+          ball.dx *= -1;
+        }
+
         gameState.score += 10;
         gameState.codesBroken++;
 
@@ -307,6 +378,23 @@ document.addEventListener("DOMContentLoaded", () => {
     drawBricks();
     ball.draw();
     paddle.draw();
+
+    // Draw "You won!" message if level complete
+    if (gameState.levelComplete) {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "#00ff41";
+      ctx.font = "bold 48px JetBrains Mono";
+      ctx.textAlign = "center";
+      const text = "YOU WON!";
+      ctx.fillText(text, canvas.width / 2, canvas.height / 2 - 20);
+
+      ctx.fillStyle = "#00cc33";
+      ctx.font = "20px JetBrains Mono";
+      ctx.fillText("Press SPACE for Next Level", canvas.width / 2, canvas.height / 2 + 40);
+      ctx.textAlign = "left";
+    }
   }
 
   function resetGame() {

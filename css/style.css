@@ -161,3 +161,13 @@ canvas {
   margin-bottom: 2rem;
   box-shadow: 0 0 10px rgba(0, 255, 65, 0.1);
 }
+
+.game-info-section a {
+  color: #ff00ff;
+  text-decoration: none;
+}
+
+.game-info-section a:hover {
+  text-decoration: underline;
+  color: #ff69b4;
+}
