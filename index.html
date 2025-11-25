@@ -1,54 +1,63 @@
-<!-- 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mon Portfolio</title>
+  <title>C-Breakout: Break the Code</title>
   <link rel="stylesheet" href="./css/style.css" />
   <link rel="stylesheet" href="./css/animation.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=CMU+Serif&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
 </head>
 <body>
   <div class="background-symbols" id="background-symbols"></div>
+  
   <header>
-    <h1>Clarence Auerbach</h1>
-    <p>Étudiant en Maths et Informatique</p>
-</header>
+    <h1>C-BREAKOUT: Break the Code</h1>
+    <p class="subtitle">Smash through C code. Free the bits. Prevent memory leaks.</p>
+  </header>
 
   <main>
-    <section class="fade-in-up">
-      <h2>À propos</h2>
-      <p>C'est un test de github.io pour host un site gratuitement 
-        et des ia pour codé une fonctionnalité quelconque . Sinon Webflow + Spline 
-        est bien plus moderne et pratique pour ces deux choses là donc 
-        ce site est abandonné et pas à jour (dernière modification : 23/05/2025). 
-      </p>
-    </section>
+    <div class="game-container">
+      <canvas id="gameCanvas"></canvas>
+      
+      <div class="game-info">
+        <div class="info-row">
+          <span>Score: <span id="score">0</span></span>
+          <span>Lives: <span id="lives">3</span></span>
+          <span>Level: <span id="level">1</span></span>
+        </div>
+        
+        <div class="controls">
+          <p id="gameStatus">Press SPACE to Start | Arrow Keys to Move</p>
+        </div>
+        
+        <div class="stats">
+          <p id="codesBroken">Code Broken: <span id="codeCount">0</span></p>
+          <p id="leaksDetected">Memory Leaks Detected: <span id="leakCount">0</span></p>
+        </div>
+      </div>
+    </div>
 
-    <section class="fade-in-up">
-      <h2>Projets</h2>
+    <section class="game-info-section fade-in-up">
+      <h2>How to Play</h2>
       <ul>
-        <li>Projet Poo (s3) – Archeology Master. Jeu de ressource en java</li>
-        <li>Projet Pré-Pro (s3) – Breakout. Casse-brique avec 10 niveaux, et un éditeur de niveau</li>
-        <li>Projet Pré-Pro (s4)– Tamalou. Jeu de carte contre des IA ou en réseaux</li>
+        <li><strong>Paddle (Memory Leak):</strong> Use LEFT/RIGHT arrow keys to control the memory leak and catch bits</li>
+        <li><strong>Ball (Bits):</strong> Bouncing bits represent corrupted data</li>
+        <li><strong>Bricks (Code):</strong> Break through C code snippets to earn points</li>
+        <li><strong>Objectives:</strong> Break all code blocks before losing all lives</li>
+        <li><strong>Danger:</strong> Let the bits fall through and you lose a life!</li>
       </ul>
     </section>
 
-    <section class="fade-in-up">
-      <h2>Contact</h2>
-      <p> clarence.auerbach-amoros@etu.u-paris.fr</p>
+    <section class="game-info-section fade-in-up">
+      <h2>The Story</h2>
+      <p>Your C program is under attack! Malicious bits are bouncing through your memory, corrupting code snippets left and right. As a memory leak, you must contain the damage by catching the bits before they escape. Break the corrupted code blocks to clean up your program and restore system stability!</p>
     </section>
   </main>
 
-
   <footer>
-    <img src="./ressource/symbol.png" alt="mathImage" >
-    <p>&copy; 2025 – Clarence Auerbach</p>
+    <p>&copy; 2025 – Clarence Auerbach | C-Breakout Edition</p>
   </footer>
- -->
 
   <script src="./js/script.js"></script>
 </body>
