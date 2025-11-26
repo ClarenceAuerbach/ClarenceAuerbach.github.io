@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AGI Simulator: Neural Network Game</title>
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" href="./css/agi-game.css" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header>
+    <h1>AGI SIMULATOR: Neural Network Training</h1>
+    <a href="./index.html" class="back-link">← Back</a>
+  </header>
+
+  <main>
+    <div class="game-container">
+      <div class="game-info">
+        <div class="info-row">
+          <span>Epoch: <span id="epoch">1</span>/<span id="totalEpochs">50</span></span>
+          <span>Accuracy: <span id="accuracy">0</span>%</span>
+          <span>Loss: <span id="loss">0.00</span></span>
+        </div>
+        <div class="controls">
+          <p id="gameStatus">Press SPACE to Train | Escape to Reset</p>
+        </div>
+      </div>
+
+      <canvas id="agiCanvas"></canvas>
+
+      <div class="game-info">
+        <div class="stats">
+          <p>📊 Neural Network Status:</p>
+          <p id="networkStatus">Neurons: 3 input → 8 hidden → 4 output</p>
+          <p id="trainingInfo">Ready to train on pattern recognition task</p>
+        </div>
+      </div>
+
+      <div class="instructions">
+        <h3>Quick Start:</h3>
+        <ul>
+          <li><strong>Input Layer:</strong> 3 sensory neurons receive data</li>
+          <li><strong>Hidden Layer:</strong> 8 neurons process patterns through weights</li>
+          <li><strong>Output Layer:</strong> 4 neurons classify patterns (0-3)</li>
+          <li><strong>Training:</strong> Weights adjust using backpropagation</li>
+          <li><strong>Goal:</strong> Achieve 100% accuracy by minimizing loss</li>
+        </ul>
+      </div>
+
+      <div class="explanation-section">
+        <h2>Understanding AGI & Neural Networks</h2>
+
+        <div class="concept">
+          <h3>What is Artificial General Intelligence (AGI)?</h3>
+          <p>Artificial General Intelligence refers to a hypothetical AI system that can understand, learn, and apply knowledge across a wide range of tasks at a human level or beyond. Unlike narrow AI (which excels at specific tasks), AGI would possess the ability to transfer learning between different domains and solve novel problems without explicit programming.</p>
+          <p><span class="highlight">Key Characteristics:</span></p>
+          <ul>
+            <li>Ability to learn from limited examples (few-shot learning)</li>
+            <li>Transfer learning across different domains</li>
+            <li>Reasoning and problem-solving in novel situations</li>
+            <li>Common sense understanding of the world</li>
+            <li>Adaptability and continuous learning</li>
+          </ul>
+        </div>
+
+        <div class="concept">
+          <h3>Neural Networks: The Foundation</h3>
+          <p>Neural networks are computational models inspired by biological neurons in the brain. They consist of interconnected nodes (neurons) organized in layers that process information and learn patterns from data through a process called backpropagation.</p>
+          <p><span class="highlight">Architecture Components:</span></p>
+          <ul>
+            <li><strong>Input Layer:</strong> Receives raw data from the environment (images, text, numbers, etc.)</li>
+            <li><strong>Hidden Layers:</strong> Process and transform data through learned weights and activation functions</li>
+            <li><strong>Output Layer:</strong> Produces predictions or classifications based on processed information</li>
+          </ul>
+        </div>
+
+        <div class="concept">
+          <h3>How Learning Works: Backpropagation</h3>
+          <p>Backpropagation is the algorithm that enables neural networks to learn. It works in two phases:</p>
+          <p><span class="highlight">Forward Pass:</span> Input data flows through the network, and predictions are made.</p>
+          <p><span class="highlight">Backward Pass:</span> Errors are calculated and propagated backward through the network, updating weights to reduce future errors.</p>
+          <div class="code-block">
+for each training iteration:
+  1. Forward pass: compute predictions
+  2. Calculate loss: compare predictions to expected output
+  3. Backward pass: compute gradients
+  4. Update weights: adjust by learning rate × gradient
+          </div>
+        </div>
+
+        <div class="concept">
+          <h3>Activation Functions</h3>
+          <p>Activation functions introduce non-linearity into neural networks, allowing them to learn complex patterns. Without them, stacking layers would be equivalent to a single linear transformation.</p>
+          <p><span class="highlight">Common Activation Functions:</span></p>
+          <ul>
+            <li><strong>Sigmoid:</strong> Squashes values between 0 and 1, used historically in early neural networks</li>
+            <li><strong>ReLU:</strong> Returns max(0, x), most popular in modern deep learning</li>
+            <li><strong>Tanh:</strong> Squashes values between -1 and 1, helps with gradient flow</li>
+            <li><strong>Softmax:</strong> Converts outputs to probability distributions for classification</li>
+          </ul>
+        </div>
+
+        <div class="concept">
+          <h3>Loss Functions & Optimization</h3>
+          <p>Loss functions measure how far predictions are from actual values. The network's goal is to minimize this loss. Different tasks require different loss functions:</p>
+          <ul>
+            <li><strong>Mean Squared Error (MSE):</strong> For regression problems (predicting continuous values)</li>
+            <li><strong>Cross-Entropy Loss:</strong> For classification problems (categorical predictions)</li>
+            <li><strong>Gradient Descent:</strong> The optimization algorithm that updates weights to minimize loss</li>
+          </ul>
+        </div>
+
+        <div class="concept">
+          <h3>Deep Learning & Representation Learning</h3>
+          <p>Deep learning uses neural networks with multiple hidden layers (hence "deep"). Each layer learns progressively more abstract representations of the data.</p>
+          <p><span class="highlight">For example, in image recognition:</span></p>
+          <ul>
+            <li>Layer 1: Detects edges and basic shapes</li>
+            <li>Layer 2: Combines edges into textures</li>
+            <li>Layer 3: Recognizes parts (eyes, nose, etc.)</li>
+            <li>Layer 4: Identifies high-level concepts (faces, objects)</li>
+          </ul>
+        </div>
+
+        <div class="concept">
+          <h3>The Path to AGI</h3>
+          <p>Current AI systems excel at narrow tasks (image recognition, language translation, game playing) but lack the generality of human intelligence. To achieve AGI, we need:</p>
+          <ul>
+            <li><strong>Transfer Learning:</strong> Using knowledge from one domain to improve learning in another</li>
+            <li><strong>Few-Shot Learning:</strong> Learning from very few examples, as humans do</li>
+            <li><strong>Reasoning & Planning:</strong> Combining learned patterns with logical reasoning</li>
+            <li><strong>Multimodal Learning:</strong> Understanding and connecting information from different sources (vision, language, audio)</li>
+            <li><strong>Continual Learning:</strong> Learning continuously without forgetting previous knowledge</li>
+          </ul>
+        </div>
+
+        <div class="concept">
+          <h3>Current Challenges & Opportunities</h3>
+          <p><span class="highlight">Challenges:</span></p>
+          <ul>
+            <li>Scalability: Training large models requires massive computational resources</li>
+            <li>Data Efficiency: Current systems need enormous amounts of data</li>
+            <li>Interpretability: Understanding why neural networks make certain decisions</li>
+            <li>Safety & Alignment: Ensuring AGI systems behave according to human values</li>
+          </ul>
+          <p><span class="highlight">Opportunities:</span></p>
+          <ul>
+            <li>Scientific breakthroughs in medicine, physics, and materials science</li>
+            <li>Solving complex global challenges (climate change, disease, poverty)</li>
+            <li>Augmenting human intelligence and creativity</li>
+            <li>Automating dangerous and repetitive tasks</li>
+          </ul>
+        </div>
+
+        <div class="concept">
+          <h3>The Future of AI</h3>
+          <p>The field is rapidly evolving. Recent advances include:</p>
+          <ul>
+            <li><strong>Transformer Models:</strong> State-of-the-art in NLP and vision (GPT, BERT, ViT)</li>
+            <li><strong>Large Language Models:</strong> Systems like GPT-4 showing emergent reasoning abilities</li>
+            <li><strong>Multimodal Models:</strong> Systems that understand vision and language together (DALL-E, GPT-4V)</li>
+            <li><strong>Reinforcement Learning:</strong> Enabling AI to learn through interaction (AlphaGo, AlphaFold)</li>
+          </ul>
+          <p>The path to AGI is uncertain, but neural networks and deep learning are currently our best tools for understanding and building intelligent systems.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="./js/agi-game.js"></script>
+</body>
+</html>

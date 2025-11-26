@@ -47,10 +47,10 @@ main {
 }
 
 .game-container {
-  background-color: #0a0e27;
-  border: 3px solid #00ff41;
+  background-color: transparent;
+  border: none;
   padding: 1.5rem;
-  box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+  box-shadow: none;
   border-radius: 8px;
   width: 100%;
   max-width: 900px;
@@ -59,7 +59,7 @@ main {
 canvas {
   display: block;
   background-color: #000;
-  border: 2px solid #00ff41;
+  border: none;
   width: 100%;
   height: auto;
   margin: 0 auto 1.5rem;
@@ -68,9 +68,10 @@ canvas {
 
 .game-info {
   background-color: #0f1535;
-  border: 2px solid #00cc33;
+  border: none;
   padding: 1.5rem;
   border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
 }
 
 .info-row {
@@ -86,19 +87,20 @@ canvas {
 }
 
 .info-row span {
-  background-color: #0a0e27;
+  background-color: transparent;
   padding: 0.5rem 1rem;
-  border: 1px solid #00ff41;
+  border: none;
   border-radius: 2px;
   font-size: 0.9rem;
+  color: #00ff41;
 }
 
 .controls {
   text-align: center;
   margin: 1rem 0;
   padding: 1rem;
-  background-color: #0a0e27;
-  border: 1px dashed #00cc33;
+  background-color: transparent;
+  border: none;
 }
 
 #gameStatus {
@@ -112,7 +114,7 @@ canvas {
 .stats {
   margin-top: 1rem;
   padding-top: 1rem;
-  border-top: 1px solid #00cc33;
+  border-top: 1px solid rgba(0, 255, 65, 0.2);
 }
 
 .stats p {
