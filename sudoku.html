@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6x6 Sudoku Game</title>
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" href="./css/sudoku.css" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header>
+    <h1>6x6 SUDOKU</h1>
+    <a href="./index.html" class="back-link">← Back</a>
+  </header>
+
+  <main>
+    <div class="game-container">
+      <div class="game-info">
+        <div class="info-row">
+          <span>Difficulty: <span id="difficulty">Medium</span></span>
+          <span>Status: <span id="status">Ready</span></span>
+        </div>
+        <div class="controls">
+          <button id="newGameBtn" class="btn btn-primary">New Game</button>
+          <button id="hintBtn" class="btn btn-secondary">Hint</button>
+          <button id="resetBtn" class="btn btn-secondary">Reset</button>
+          <button id="solveBtn" class="btn btn-secondary">Solve</button>
+        </div>
+      </div>
+
+      <div class="sudoku-board-container">
+        <div id="sudokuBoard" class="sudoku-board"></div>
+      </div>
+
+      <div class="game-info">
+        <div class="stats">
+          <p>📊 Game Stats:</p>
+          <p id="moveCount">Moves: 0</p>
+          <p id="errorCount">Errors: 0</p>
+          <p id="completionStatus">Completion: 0%</p>
+        </div>
+      </div>
+
+      <div class="instructions">
+        <h3>How to Play:</h3>
+        <ul>
+          <li>Fill the grid so each row, column, and 2x3 box contains numbers 1-6</li>
+          <li>Click a cell and type a number to enter your guess</li>
+          <li>Use Hint to get a suggestion for an empty cell</li>
+          <li>Red text indicates conflicts (same number in row/column/box)</li>
+          <li>New Game generates a fresh puzzle with random difficulty</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <script src="./js/sudoku.js"></script>
+</body>
+</html>
