@@ -1,0 +1,124 @@
+/* Breakout Game Page Styles */
+body {
+  background-color: #0a0e27;
+  color: #00ff41;
+  overflow: hidden;
+}
+
+header {
+  background: none;
+  border: none;
+  padding: 1rem 2rem;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h1 {
+  color: #00ff41;
+  font-size: 2rem;
+  text-shadow: 0 0 10px #00ff41;
+  flex: 1;
+}
+
+.back-link {
+  background-color: #75b567;
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.back-link:hover {
+  background-color: #639356;
+  transform: scale(1.05);
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  height: calc(100vh - 120px);
+}
+
+.game-container {
+  background-color: #0a0e27;
+  border: 3px solid #00ff41;
+  padding: 1.5rem;
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+  border-radius: 8px;
+  width: 100%;
+  max-width: 900px;
+}
+
+canvas {
+  display: block;
+  background-color: #000;
+  border: 2px solid #00ff41;
+  width: 100%;
+  height: auto;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+}
+
+.game-info {
+  background-color: #0f1535;
+  border: 2px solid #00cc33;
+  padding: 1.5rem;
+  border-radius: 4px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: #00ff41;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.info-row span {
+  background-color: #0a0e27;
+  padding: 0.5rem 1rem;
+  border: 1px solid #00ff41;
+  border-radius: 2px;
+  font-size: 0.9rem;
+}
+
+.controls {
+  text-align: center;
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: #0a0e27;
+  border: 1px dashed #00cc33;
+}
+
+#gameStatus {
+  color: #00ff41;
+  font-size: 0.9rem;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.stats {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #00cc33;
+}
+
+.stats p {
+  color: #00cc33;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}

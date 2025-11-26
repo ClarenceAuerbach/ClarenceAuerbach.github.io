@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C-Breakout: Break the Code</title>
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" href="./css/breakout.css" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header>
+    <h1>C-BREAKOUT: Break the Code</h1>
+    <a href="./index.html" class="back-link">← Back</a>
+  </header>
+
+  <main>
+    <div class="game-container">
+      <canvas id="gameCanvas"></canvas>
+      <div class="game-info">
+        <div class="info-row">
+          <span>Score: <span id="score">0</span></span>
+          <span>Lives: <span id="lives">3</span></span>
+          <span>Level: <span id="level">1</span></span>
+        </div>
+        <div class="controls">
+          <p id="gameStatus">Press SPACE to Start | Arrow Keys to Move</p>
+        </div>
+        <div class="stats">
+          <p>Code Broken: <span id="codeCount">0</span></p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="./js/breakout.js"></script>
+</body>
+</html>

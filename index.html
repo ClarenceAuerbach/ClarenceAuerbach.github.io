@@ -3,57 +3,66 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>C-Breakout: Break the Code</title>
+  <title>Clarence Auerbach - University Projects</title>
   <link rel="stylesheet" href="./css/style.css" />
-  <link rel="stylesheet" href="./css/animation.css" />
+  <link rel="stylesheet" href="./css/index.css" />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <div class="background-symbols" id="background-symbols"></div>
-  
   <header>
-    <h1>C-BREAKOUT: Break the Code</h1>
-    <p class="subtitle">Smash through C code. Free the bits. Prevent memory leaks.</p>
+    <div class="header-content">
+      <h1>Clarence Auerbach</h1>
+      <p class="subtitle">Computer Science & Mathematics Student</p>
+    </div>
+    <button id="themeToggle" class="theme-toggle">🌒</button>
   </header>
 
   <main>
-    <div class="game-container">
-      <canvas id="gameCanvas"></canvas>
-      
-      <div class="game-info">
-        <div class="info-row">
-          <span>Score: <span id="score">0</span></span>
-          <span>Lives: <span id="lives">3</span></span>
-          <span>Level: <span id="level">1</span></span>
-        </div>
-        
-        <div class="controls">
-          <p id="gameStatus">Press SPACE to Start | Arrow Keys to Move</p>
-        </div>
-        
-        <div class="stats">
-          <p id="codesBroken">Code Broken: <span id="codeCount">0</span></p>
-          <p id="leaksDetected">Memory Leaks Detected: <span id="leakCount">0</span></p>
+    <section class="projects-section">
+      <h2>University Projects</h2>
+      <div class="projects-grid">
+        <a href="https://github.com/ClarenceAuerbach/Pre-Pro" target="_blank" class="project-card">
+          <h3>Breakout with Added Functionalities</h3>
+          <p class="tech-stack">Java</p>
+          <p>Enhanced breakout game featuring custom level editor and advanced mechanics</p>
+        </a>
+
+        <a href="https://github.com/ClarenceAuerbach/Projet-Poo" target="_blank" class="project-card">
+          <h3>Resource Game on a Grid</h3>
+          <p class="tech-stack">Java</p>
+          <p>Strategic resource management game with grid-based gameplay</p>
+        </a>
+
+        <a href="https://github.com/ClarenceAuerbach/Projet-Pro-S4" target="_blank" class="project-card">
+          <h3>Multiplayer Card Game - Dutch</h3>
+          <p class="tech-stack">Java</p>
+          <p>Networked multiplayer card game implementation</p>
+        </a>
+
+        <div class="project-card">
+          <h3>Command Line Task-Scheduler</h3>
+          <p class="tech-stack">C</p>
+          <p>Full-featured task scheduling system with advanced memory management</p>
         </div>
       </div>
-    </div>
+      <p class="github-link">Find these projects on my <a href="https://github.com/ClarenceAuerbach" target="_blank">GitHub profile</a>.</p>
+    </section>
 
-    <section class="game-info-section fade-in-up">
-      <h2>University Projects</h2>
-      <ul>
-        <li><strong>Breakout with Added Functionalities (Java):</strong> Enhanced breakout game featuring custom level editor and advanced mechanics</li>
-        <li><strong>Resource Game on a Grid (Java):</strong> Strategic resource management game with grid-based gameplay</li>
-        <li><strong>Multiplayer Card Game - Dutch (Java):</strong> Networked multiplayer card game implementation</li>
-        <li><strong>Command Line Task-Scheduler (C):</strong> Full-featured task scheduling system built in C with advanced memory management</li>
-      </ul>
-      <p>Find a copy of each project on my <a href="https://github.com/ClarenceAuerbach" target="_blank">GitHub profile</a>.</p>
+    <section class="experiments-section">
+      <div class="dropdown-container">
+        <button id="gameButton" class="vibe-button">☄️ Vibe Code Experiments ▼</button>
+        <div id="experimentMenu" class="dropdown-menu hidden">
+          <a href="./breakout.html" class="menu-item">🎮 C-Breakout Game</a>
+        </div>
+      </div>
     </section>
   </main>
 
   <footer>
-    <p>&copy; 2025 – Clarence Auerbach | C-Breakout Edition</p>
+    <p>&copy; 2025 – Clarence Auerbach</p>
   </footer>
 
   <script src="./js/script.js"></script>
+  <script src="./js/index.js"></script>
 </body>
 </html>
