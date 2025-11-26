@@ -206,10 +206,15 @@ h2 {
   margin-top: 0.5rem;
   z-index: 100;
   overflow: hidden;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .dropdown-menu.hidden {
-  display: none;
+  display: none !important;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .menu-item {
