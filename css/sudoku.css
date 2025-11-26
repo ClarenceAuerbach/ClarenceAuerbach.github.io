@@ -149,7 +149,7 @@ main {
 
 .sudoku-board {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 0;
   background-color: #171513;
   padding: 4px;
@@ -158,20 +158,21 @@ main {
 }
 
 .sudoku-cell {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #f0efe9;
   border: 1px solid #8e5d30;
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: bold;
   color: #171513;
   cursor: pointer;
   font-family: 'JetBrains Mono', monospace;
   position: relative;
   transition: all 0.2s ease;
+  box-sizing: border-box;
 }
 
 .sudoku-cell:hover:not(.given) {
@@ -204,7 +205,7 @@ main {
   border: none;
   background: transparent;
   color: #171513;
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: bold;
   text-align: center;
   font-family: 'JetBrains Mono', monospace;
@@ -215,43 +216,22 @@ main {
   color: #c41e3a;
 }
 
-/* 2x3 Box Borders (6 boxes total) */
-/* Top border for first 2 rows */
-.sudoku-cell:nth-child(-6n+6) {
-  border-top: 3px solid #171513;
-}
 
-/* Bottom border for last 2 rows */
-.sudoku-cell:nth-child(n+31) {
+/* 2x2 Box Borders - Bold only between boxes */
+/* Horizontal divider: bottom border of row 2 (cells 5,6,7,8) */
+.sudoku-cell:nth-child(5),
+.sudoku-cell:nth-child(6),
+.sudoku-cell:nth-child(7),
+.sudoku-cell:nth-child(8) {
   border-bottom: 3px solid #171513;
 }
 
-/* Left border for left column of each box */
-.sudoku-cell:nth-child(6n+1) {
-  border-left: 3px solid #171513;
-}
-
-/* Right border for right column of each box */
-.sudoku-cell:nth-child(6n) {
+/* Vertical divider: right border of column 2 (cells 2,6,10,14) */
+.sudoku-cell:nth-child(2),
+.sudoku-cell:nth-child(6),
+.sudoku-cell:nth-child(10),
+.sudoku-cell:nth-child(14) {
   border-right: 3px solid #171513;
-}
-
-/* Middle horizontal line (between row 2 and 3) */
-.sudoku-cell:nth-child(n+13):nth-child(-6n+18) {
-  border-bottom: 3px solid #171513;
-}
-
-.sudoku-cell:nth-child(n+19) {
-  border-top: 3px solid #171513;
-}
-
-/* Middle vertical lines (between col 2-3 and col 4-5) */
-.sudoku-cell:nth-child(6n+3) {
-  border-right: 3px solid #171513;
-}
-
-.sudoku-cell:nth-child(6n+4) {
-  border-left: 3px solid #171513;
 }
 
 .stats {

@@ -1,9 +1,9 @@
-// 6x6 Sudoku Game Logic
+// 4x4 Sudoku Game Logic
 
-class Sudoku6x6 {
+class Sudoku4x4 {
   constructor() {
-    this.size = 6;
-    this.boxWidth = 3;
+    this.size = 4;
+    this.boxWidth = 2;
     this.boxHeight = 2;
     this.grid = [];
     this.solution = [];
@@ -26,16 +26,16 @@ class Sudoku6x6 {
   }
 
   generateSolution() {
-    const grid = Array(6).fill(null).map(() => Array(6).fill(0));
+    const grid = Array(4).fill(null).map(() => Array(4).fill(0));
     this.fillGrid(grid);
     return grid;
   }
 
   fillGrid(grid) {
-    for (let row = 0; row < 6; row++) {
-      for (let col = 0; col < 6; col++) {
+    for (let row = 0; row < 4; row++) {
+      for (let col = 0; col < 4; col++) {
         if (grid[row][col] === 0) {
-          const nums = this.shuffle([1, 2, 3, 4, 5, 6]);
+          const nums = this.shuffle([1, 2, 3, 4]);
           for (let num of nums) {
             if (this.isValid(grid, row, col, num)) {
               grid[row][col] = num;
@@ -52,20 +52,20 @@ class Sudoku6x6 {
 
   isValid(grid, row, col, num) {
     // Check row
-    for (let c = 0; c < 6; c++) {
+    for (let c = 0; c < 4; c++) {
       if (grid[row][c] === num) return false;
     }
 
     // Check column
-    for (let r = 0; r < 6; r++) {
+    for (let r = 0; r < 4; r++) {
       if (grid[r][col] === num) return false;
     }
 
-    // Check 2x3 box
+    // Check 2x2 box
     const boxRow = Math.floor(row / 2) * 2;
-    const boxCol = Math.floor(col / 3) * 3;
+    const boxCol = Math.floor(col / 2) * 2;
     for (let r = boxRow; r < boxRow + 2; r++) {
-      for (let c = boxCol; c < boxCol + 3; c++) {
+      for (let c = boxCol; c < boxCol + 2; c++) {
         if (grid[r][c] === num) return false;
       }
     }
@@ -76,11 +76,11 @@ class Sudoku6x6 {
   removeCells() {
     let removed = 0;
     const difficulty = Math.random();
-    const targetRemove = difficulty < 0.33 ? 18 : difficulty < 0.66 ? 24 : 28;
+    const targetRemove = difficulty < 0.33 ? 8 : difficulty < 0.66 ? 10 : 12;
 
     while (removed < targetRemove) {
-      const row = Math.floor(Math.random() * 6);
-      const col = Math.floor(Math.random() * 6);
+      const row = Math.floor(Math.random() * 4);
+      const col = Math.floor(Math.random() * 4);
 
       if (this.grid[row][col] !== 0) {
         this.grid[row][col] = 0;
@@ -97,32 +97,9 @@ class Sudoku6x6 {
     return array;
   }
 
-  isValid(grid, row, col, num) {
-    // Check row
-    for (let c = 0; c < 6; c++) {
-      if (c !== col && grid[row][c] === num) return false;
-    }
-
-    // Check column
-    for (let r = 0; r < 6; r++) {
-      if (r !== row && grid[r][col] === num) return false;
-    }
-
-    // Check 2x3 box
-    const boxRow = Math.floor(row / 2) * 2;
-    const boxCol = Math.floor(col / 3) * 3;
-    for (let r = boxRow; r < boxRow + 2; r++) {
-      for (let c = boxCol; c < boxCol + 3; c++) {
-        if ((r !== row || c !== col) && grid[r][c] === num) return false;
-      }
-    }
-
-    return true;
-  }
-
   getHint(grid) {
-    for (let row = 0; row < 6; row++) {
-      for (let col = 0; col < 6; col++) {
+    for (let row = 0; row < 4; row++) {
+      for (let col = 0; col < 4; col++) {
         if (grid[row][col] === 0 && this.original[row][col] === 0) {
           return { row, col, value: this.solution[row][col] };
         }
@@ -135,24 +112,24 @@ class Sudoku6x6 {
     const conflicts = [];
 
     // Check row
-    for (let c = 0; c < 6; c++) {
+    for (let c = 0; c < 4; c++) {
       if (c !== col && grid[row][c] === num) {
         conflicts.push({ row, col: c });
       }
     }
 
     // Check column
-    for (let r = 0; r < 6; r++) {
+    for (let r = 0; r < 4; r++) {
       if (r !== row && grid[r][col] === num) {
         conflicts.push({ row: r, col });
       }
     }
 
-    // Check 2x3 box
+    // Check 2x2 box
     const boxRow = Math.floor(row / 2) * 2;
-    const boxCol = Math.floor(col / 3) * 3;
+    const boxCol = Math.floor(col / 2) * 2;
     for (let r = boxRow; r < boxRow + 2; r++) {
-      for (let c = boxCol; c < boxCol + 3; c++) {
+      for (let c = boxCol; c < boxCol + 2; c++) {
         if ((r !== row || c !== col) && grid[r][c] === num) {
           conflicts.push({ row: r, col: c });
         }
@@ -163,8 +140,8 @@ class Sudoku6x6 {
   }
 
   isComplete(grid) {
-    for (let row = 0; row < 6; row++) {
-      for (let col = 0; col < 6; col++) {
+    for (let row = 0; row < 4; row++) {
+      for (let col = 0; col < 4; col++) {
         if (grid[row][col] === 0) return false;
       }
     }
@@ -173,7 +150,7 @@ class Sudoku6x6 {
 }
 
 // Game State
-let sudoku = new Sudoku6x6();
+let sudoku = new Sudoku4x4();
 let userGrid = sudoku.grid.map(row => [...row]);
 let moves = 0;
 let errors = 0;
@@ -183,8 +160,8 @@ function renderBoard() {
   const board = document.getElementById("sudokuBoard");
   board.innerHTML = "";
 
-  for (let row = 0; row < 6; row++) {
-    for (let col = 0; col < 6; col++) {
+  for (let row = 0; row < 4; row++) {
+    for (let col = 0; col < 4; col++) {
       const cell = document.createElement("div");
       cell.className = "sudoku-cell";
       
@@ -210,7 +187,7 @@ function renderBoard() {
           }
           
           const num = parseInt(val);
-          if (num >= 1 && num <= 6) {
+          if (num >= 1 && num <= 4) {
             userGrid[row][col] = num;
             moves++;
             errors = 0;
@@ -258,13 +235,13 @@ function updateStats() {
   document.getElementById("errorCount").textContent = `Errors: ${errors}`;
 
   let filled = 0;
-  for (let row = 0; row < 6; row++) {
-    for (let col = 0; col < 6; col++) {
+  for (let row = 0; row < 4; row++) {
+    for (let col = 0; col < 4; col++) {
       if (userGrid[row][col] !== 0) filled++;
     }
   }
 
-  const completion = Math.round((filled / 36) * 100);
+  const completion = Math.round((filled / 16) * 100);
   document.getElementById("completionStatus").textContent = `Completion: ${completion}%`;
 
   if (sudoku.isComplete(userGrid)) {
@@ -275,7 +252,7 @@ function updateStats() {
 }
 
 function newGame() {
-  sudoku = new Sudoku6x6();
+  sudoku = new Sudoku4x4();
   userGrid = sudoku.grid.map(row => [...row]);
   moves = 0;
   errors = 0;
