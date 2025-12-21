@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Variables Aléatoires Usuelles</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background-color: #f9fafb;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e3a8a;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            color: #1e40af;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+        }
+
+        h2.continues {
+            color: #065f46;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+        }
+
+        thead {
+            background-color: #2563eb;
+            color: white;
+        }
+
+        thead.continues {
+            background-color: #059669;
+        }
+
+        th {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-weight: 600;
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        th:last-child {
+            border-right: none;
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-right: 1px solid #e5e7eb;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        td:last-child {
+            border-right: none;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+
+        tbody tr:hover {
+            background-color: #f3f4f6;
+        }
+
+        .nom-col {
+            font-weight: 500;
+            color: #1e3a8a;
+            white-space: nowrap;
+        }
+
+        .nom-col.continues {
+            color: #065f46;
+        }
+
+        .formule {
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            white-space: nowrap;
+        }
+
+        .notes {
+            background-color: #dbeafe;
+            border: 1px solid #93c5fd;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .notes h3 {
+            color: #1e3a8a;
+            margin-bottom: 0.5rem;
+        }
+
+        .notes ul {
+            list-style-position: inside;
+            color: #374151;
+        }
+
+        .notes li {
+            margin: 0.5rem 0;
+        }
+
+        .notes strong {
+            color: #1e40af;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            table {
+                font-size: 0.75rem;
+            }
+
+            th, td {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Variables Aléatoires Usuelles</h1>
+
+        <h2>Variables Aléatoires Discrètes</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nom (Notation)</th>
+                        <th>Loi</th>
+                        <th>Fct Génératrice Moments (e<sup>t</sup>)</th>
+                        <th>Transformée Laplace (s)</th>
+                        <th>E[X]</th>
+                        <th>Var(X)</th>
+                        <th>Gén. Moments Factoriels (u)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="nom-col">Bernoulli B(p)</td>
+                        <td class="formule">P(X=1)=p, P(X=0)=1-p</td>
+                        <td class="formule">1-p+pe<sup>t</sup></td>
+                        <td class="formule">1-p+ps</td>
+                        <td class="formule">p</td>
+                        <td class="formule">p(1-p)</td>
+                        <td class="formule">1-p+pu</td>
+                    </tr>
+                    <tr>
+                        <td class="nom-col">Binomiale B(n,p)</td>
+                        <td class="formule">P(X=k)=C(n,k)p<sup>k</sup>(1-p)<sup>n-k</sup></td>
+                        <td class="formule">(1-p+pe<sup>t</sup>)<sup>n</sup></td>
+                        <td class="formule">(1-p+ps)<sup>n</sup></td>
+                        <td class="formule">np</td>
+                        <td class="formule">np(1-p)</td>
+                        <td class="formule">(1-p+pu)<sup>n</sup></td>
+                    </tr>
+                    <tr>
+                        <td class="nom-col">Géométrique G(p)</td>
+                        <td class="formule">P(X=k)=p(1-p)<sup>k-1</sup>, k≥1</td>
+                        <td class="formule">pe<sup>t</sup>/(1-(1-p)e<sup>t</sup>)</td>
+                        <td class="formule">ps/(1-(1-p)s)</td>
+                        <td class="formule">1/p</td>
+                        <td class="formule">(1-p)/p²</td>
+                        <td class="formule">pu/(1-(1-p)u)</td>
+                    </tr>
+                    <tr>
+                        <td class="nom-col">Poisson P(λ)</td>
+                        <td class="formule">P(X=k)=e<sup>-λ</sup>λ<sup>k</sup>/k!</td>
+                        <td class="formule">e<sup>λ(e<sup>t</sup>-1)</sup></td>
+                        <td class="formule">e<sup>λ(s-1)</sup></td>
+                        <td class="formule">λ</td>
+                        <td class="formule">λ</td>
+                        <td class="formule">e<sup>λ(u-1)</sup></td>
+                    </tr>
+                    <tr>
+                        <td class="nom-col">Uniforme discrète U{1,...,n}</td>
+                        <td class="formule">P(X=k)=1/n, k∈{1,...,n}</td>
+                        <td class="formule">e<sup>t</sup>(1-e<sup>nt</sup>)/(n(1-e<sup>t</sup>))</td>
+                        <td class="formule">s(1-s<sup>n</sup>)/(n(1-s))</td>
+                        <td class="formule">(n+1)/2</td>
+                        <td class="formule">(n²-1)/12</td>
+                        <td class="formule">u(1-u<sup>n</sup>)/(n(1-u))</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="continues">Variables Aléatoires Continues</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead class="continues">
+                    <tr>
+                        <th>Nom (Notation)</th>
+                        <th>Densité</th>
+                        <th>Fct Génératrice Moments (e<sup>t</sup>)</th>
+                        <th>Transformée Laplace (s)</th>
+                        <th>E[X]</th>
+                        <th>Var(X)</th>
+                        <th>Gén. Moments Factoriels (u)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="nom-col continues">Uniforme U([a,b])</td>
+                        <td class="formule">f(x)=1/(b-a) si x∈[a,b]</td>
+                        <td class="formule">(e<sup>bt</sup>-e<sup>at</sup>)/(t(b-a))</td>
+                        <td class="formule">(s<sup>b</sup>-s<sup>a</sup>)/(s(b-a))</td>
+                        <td class="formule">(a+b)/2</td>
+                        <td class="formule">(b-a)²/12</td>
+                        <td class="formule">(u<sup>b</sup>-u<sup>a</sup>)/(u(b-a))</td>
+                    </tr>
+                    <tr>
+                        <td class="nom-col continues">Exponentielle E(λ)</td>
+                        <td class="formule">f(x)=λe<sup>-λx</sup>, x≥0</td>
+                        <td class="formule">λ/(λ-t), t&lt;λ</td>
+                        <td class="formule">λ/(λ-s), s&lt;λ</td>
+                        <td class="formule">1/λ</td>
+                        <td class="formule">1/λ²</td>
+                        <td class="formule">λ/(λ-u), u&lt;λ</td>
+                    </tr>
+                    <tr>
+                        <td class="nom-col continues">Normale N(μ,σ²)</td>
+                        <td class="formule">f(x)=(1/(σ√(2π)))e<sup>-(x-μ)²/(2σ²)</sup></td>
+                        <td class="formule">e<sup>μt+σ²t²/2</sup></td>
+                        <td class="formule">e<sup>μs+σ²s²/2</sup></td>
+                        <td class="formule">μ</td>
+                        <td class="formule">σ²</td>
+                        <td class="formule">e<sup>μu+σ²u²/2</sup></td>
+                    </tr>
+                    <tr>
+                        <td class="nom-col continues">Gamma Γ(α,λ)</td>
+                        <td class="formule">f(x)=(λ<sup>α</sup>/Γ(α))x<sup>α-1</sup>e<sup>-λx</sup>, x&gt;0</td>
+                        <td class="formule">(λ/(λ-t))<sup>α</sup>, t&lt;λ</td>
+                        <td class="formule">(λ/(λ-s))<sup>α</sup>, s&lt;λ</td>
+                        <td class="formule">α/λ</td>
+                        <td class="formule">α/λ²</td>
+                        <td class="formule">(λ/(λ-u))<sup>α</sup>, u&lt;λ</td>
+                    </tr>
+                    <tr>
+                        <td class="nom-col continues">Beta β(a,b)</td>
+                        <td class="formule">f(x)=(Γ(a+b)/(Γ(a)Γ(b)))x<sup>a-1</sup>(1-x)<sup>b-1</sup>, x∈[0,1]</td>
+                        <td class="formule">Σ(k≥0)(Π(j=0..k-1)(a+j)/(a+b+j))t<sup>k</sup>/k!</td>
+                        <td class="formule">Pas de forme simple</td>
+                        <td class="formule">a/(a+b)</td>
+                        <td class="formule">ab/((a+b)²(a+b+1))</td>
+                        <td class="formule">Pas de forme simple</td>
+                    </tr>
+                    <tr>
+                        <td class="nom-col continues">Chi-deux χ²(n)</td>
+                        <td class="formule">f(x)=(1/(2<sup>n/2</sup>Γ(n/2)))x<sup>n/2-1</sup>e<sup>-x/2</sup>, x&gt;0</td>
+                        <td class="formule">(1-2t)<sup>-n/2</sup>, t&lt;1/2</td>
+                        <td class="formule">(1-2s)<sup>-n/2</sup>, s&lt;1/2</td>
+                        <td class="formule">n</td>
+                        <td class="formule">2n</td>
+                        <td class="formule">(1-2u)<sup>-n/2</sup>, u&lt;1/2</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="notes">
+            <h3>Notes :</h3>
+            <ul>
+                <li><strong>Fonction génératrice des moments :</strong> M<sub>X</sub>(t) = E[e<sup>tX</sup>]</li>
+                <li><strong>Transformée de Laplace :</strong> L<sub>X</sub>(s) = E[s<sup>X</sup>] (discret) ou E[e<sup>sX</sup>] (continu)</li>
+                <li><strong>Génératrice des moments factoriels :</strong> G<sub>X</sub>(u) = E[u<sup>X</sup>]</li>
+                <li>Pour certaines lois (Beta), les formes fermées n'existent pas toujours</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
