@@ -12,6 +12,7 @@
   --text-secondary: #666666;
   --border-color: #e0e0e0;
   --accent-color: #75b567;
+  --accent-color2: #7467b5;
   --accent-light: #e8f3e4;
 }
 
@@ -153,6 +154,24 @@ h2 {
 }
 
 .github-link a:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
+.github-link2 {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.github-link2 a {
+  color: var(--accent-color2);
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.github-link2 a:hover {
   text-decoration: underline;
   opacity: 0.8;
 }
